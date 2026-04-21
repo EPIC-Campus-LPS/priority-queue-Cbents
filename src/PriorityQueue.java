@@ -25,6 +25,10 @@ public class PriorityQueue<E extends Comparable<E>> {
      * @param element the element to be added
      */
     public void add(E element) {
+        //First case: Check if empty and add
+
+        // Second case: Add at the end and Sift Up (Depends on what the number is tho), compare to parent and swap if needed
+        // Parent at i, children are at 2i + 1 and 2i + 2 | Reverse that to go backwards through the array list
 
     }
 
@@ -36,7 +40,7 @@ public class PriorityQueue<E extends Comparable<E>> {
      * @param posTwo the second element's position in the queue
      */
     private void swap(int posOne, int posTwo) {
-
+        // floor(i-1)/2) and ceiling(i-2)/2)
     }
 
     /**
