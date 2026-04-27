@@ -26,7 +26,14 @@ public class PriorityQueue<E extends Comparable<E>> {
      */
     public void add(E element) {
         //First case: Check if empty and add
+        if (myHeap.size() == 0){
+            myHeap.add(element);
+        }
 
+        else{
+            myHeap.add(element);
+            heapify(myHeap.size()-1);
+        }
         // Second case: Add at the end and Sift Up (Depends on what the number is tho), compare to parent and swap if needed
         // Parent at i, children are at 2i + 1 and 2i + 2 | Reverse that to go backwards through the array list
 
@@ -40,7 +47,9 @@ public class PriorityQueue<E extends Comparable<E>> {
      * @param posTwo the second element's position in the queue
      */
     private void swap(int posOne, int posTwo) {
-        // floor(i-1)/2) and ceiling(i-2)/2)
+        E temp = myHeap.get(posOne);
+        myHeap.set(posOne, myHeap.get(posTwo));
+        myHeap.set(posTwo, temp);
     }
 
     /**
@@ -50,6 +59,12 @@ public class PriorityQueue<E extends Comparable<E>> {
      * @return true if the element is in the queue, false otherwise
      */
     public boolean contains(E element) {
+        for (E n : myHeap){
+            if (n == element){
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -60,7 +75,15 @@ public class PriorityQueue<E extends Comparable<E>> {
      * @return the element of highest priority queue
      */
     public E peek() {
-        return null;
+
+        if (myHeap.size() == 0){
+            return null;
+        }
+        else{
+            return myHeap.get(0);
+        }
+
+
     }
 
     /**
@@ -80,6 +103,12 @@ public class PriorityQueue<E extends Comparable<E>> {
      * @param pos the starting position for heapify
      */
     private void heapify(int pos) {
+        int parentIndex = (pos -1)/2;
+
+        //Check if less than parent
+        if (myHeap.get(pos).compareTo(myHeap.get(parentIndex)) < 0){
+            swap(pos, parentIndex);
+        }
 
     }
 
@@ -101,7 +130,7 @@ public class PriorityQueue<E extends Comparable<E>> {
      * @return the number of elements in the queue
      */
     public int size() {
-        return -1;
+        return myHeap.size();
     }
 
     /**
@@ -112,7 +141,14 @@ public class PriorityQueue<E extends Comparable<E>> {
      * @return the String representation of the heap
      */
     public String toString() {
-        return "toString";
+
+        StringBuilder sb = new StringBuilder();
+
+        for (E item : myHeap) {
+            sb.append(item).append(" ");
+        }
+
+        return sb.toString().trim(); //remove the trailing space
     }
 
 
