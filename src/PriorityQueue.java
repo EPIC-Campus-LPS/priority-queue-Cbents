@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * mean "higher" priority.
  *
  * @param <E> the type of elements in the queue
- * @author
+ * @author Cbents
  */
 public class PriorityQueue<E extends Comparable<E>> {
 
@@ -26,7 +26,7 @@ public class PriorityQueue<E extends Comparable<E>> {
      */
     public void add(E element) {
         //First case: Check if empty and add
-        if (myHeap.size() == 0){
+        if (myHeap.isEmpty()){
             myHeap.add(element);
         }
 
@@ -34,8 +34,7 @@ public class PriorityQueue<E extends Comparable<E>> {
             myHeap.add(element);
             heapify(myHeap.size()-1);
         }
-        // Second case: Add at the end and Sift Up (Depends on what the number is tho), compare to parent and swap if needed
-        // Parent at i, children are at 2i + 1 and 2i + 2 | Reverse that to go backwards through the array list
+
 
     }
 
@@ -76,7 +75,7 @@ public class PriorityQueue<E extends Comparable<E>> {
      */
     public E peek() {
 
-        if (myHeap.size() == 0){
+        if (myHeap.isEmpty()){
             return null;
         }
         else{
@@ -93,7 +92,19 @@ public class PriorityQueue<E extends Comparable<E>> {
      * @return the element of highest priority
      */
     public E poll() {
-        return null;
+        if (myHeap.isEmpty()){
+            return null;
+        }
+        E temp = myHeap.get(0);
+        myHeap.set(0, myHeap.get(-1)); // Set root to the last element
+        myHeap.set(-1, temp); //Set last value in list to root
+        myHeap.remove(-1); // remove root
+        heapify(0);
+
+        return temp;
+
+
+
     }
 
     /**
@@ -103,11 +114,44 @@ public class PriorityQueue<E extends Comparable<E>> {
      * @param pos the starting position for heapify
      */
     private void heapify(int pos) {
-        int parentIndex = (pos -1)/2;
 
-        //Check if less than parent
-        if (myHeap.get(pos).compareTo(myHeap.get(parentIndex)) < 0){
-            swap(pos, parentIndex);
+        while (pos > 0) {
+            int parentIndex = (pos - 1) / 2;
+            int leftChild = (2 * pos) + 1;
+            int rightChild = (2 * pos) + 2;
+
+            if (myHeap.get(pos).compareTo(myHeap.get(parentIndex)) < 0) {
+                swap(pos, parentIndex);
+                pos = parentIndex; // move upward
+            }
+
+            else if (myHeap.get(pos).compareTo(myHeap.get(leftChild)) > 0 && myHeap.get(pos).compareTo(myHeap.get(rightChild)) > 0){
+                if (myHeap.get(rightChild).compareTo(myHeap.get(leftChild)) > 0){ //If right child > left child
+                    swap(pos, leftChild);
+                    pos = leftChild;
+                }
+                else if (myHeap.get(rightChild).compareTo(myHeap.get(leftChild)) < 0){// If right < left
+                    swap(pos, rightChild);
+                    pos = rightChild;
+                }
+                else{
+                    swap(pos, leftChild);
+                    pos = leftChild;
+                }
+            }
+
+            else if (myHeap.get(pos).compareTo(myHeap.get(leftChild)) > 0){ // > left, swap with left
+                swap(pos, leftChild);
+                pos = leftChild;
+            }
+            else if (myHeap.get(pos).compareTo(myHeap.get(rightChild)) > 0){ // > right, swap with right
+                swap(pos, rightChild);
+                pos = rightChild;
+            }
+            else {
+                break;
+            }
+
         }
 
     }
@@ -121,7 +165,31 @@ public class PriorityQueue<E extends Comparable<E>> {
      * @return true if an element was removed from the queue, false otherwise
      */
     public boolean remove(E element) {
-        return false;
+        int pos = -1000;
+        if (myHeap.isEmpty()){
+            return false;
+        }
+        for (int i = 0; i < myHeap.size(); i++){
+            if (myHeap.get(i).equals(element)){
+                pos = i;
+            }
+        }
+        if (pos == -1000){
+            return false;
+        }
+        else{
+            E temp = myHeap.get(pos);
+            myHeap.set(pos, myHeap.get(-1));
+            myHeap.set(-1, temp);
+            myHeap.remove(-1);
+            heapify(pos);
+
+            return true;
+        }
+
+
+
+
     }
 
     /**
@@ -149,18 +217,6 @@ public class PriorityQueue<E extends Comparable<E>> {
         }
 
         return sb.toString().trim(); //remove the trailing space
-    }
-
-
-    /**
-     * Main method - contains console program used
-     * for testing of the PriorityQueue class.
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-// TODO Auto-generated method stub
-
     }
 
 }

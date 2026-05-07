@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fe28e44d-3afb-47c5-9791-b5325ffda597" name="Changes" comment="">
+    <list default="true" id="fe28e44d-3afb-47c5-9791-b5325ffda597" name="Changes" comment="Still need to work on poll() and remove()!!!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PriorityQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PriorityQueue.java" afterDir="false" />
     </list>
@@ -9,6 +9,13 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit5 Test Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -19,12 +26,12 @@
     &quot;assignee&quot;: &quot;Cbents&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/EPIC-Campus-LPS/priority-queue-Cbents.git",
-    "accountId": "b8530b7c-088f-4916-865d-9b32094a4f13"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/EPIC-Campus-LPS/priority-queue-Cbents.git&quot;,
+    &quot;accountId&quot;: &quot;b8530b7c-088f-4916-865d-9b32094a4f13&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4,
   &quot;fromUser&quot;: false
@@ -41,7 +48,8 @@
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/cadenbents/IdeaProjects/priority-queue-Cbents&quot;
   }
 }</component>
   <component name="SharedIndexes">
@@ -60,9 +68,22 @@
       <option name="presentableId" value="Default" />
       <updated>1701452657355</updated>
     </task>
+    <task id="LOCAL-00001" summary="Still need to work on poll() and remove()!!!">
+      <option name="closed" value="true" />
+      <created>1777323877520</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1777323877520</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Still need to work on poll() and remove()!!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Still need to work on poll() and remove()!!!" />
   </component>
 </project>
