@@ -59,7 +59,7 @@ public class PriorityQueue<E extends Comparable<E>> {
      */
     public boolean contains(E element) {
         for (E n : myHeap){
-            if (n == element){
+            if (n.equals(element)){
                 return true;
             }
         }
@@ -92,19 +92,26 @@ public class PriorityQueue<E extends Comparable<E>> {
      * @return the element of highest priority
      */
     public E poll() {
-        if (myHeap.isEmpty()){
+        if (myHeap.isEmpty()) {
             return null;
         }
+
         E temp = myHeap.get(0);
-        myHeap.set(0, myHeap.get(-1)); // Set root to the last element
-        myHeap.set(-1, temp); //Set last value in list to root
-        myHeap.remove(-1); // remove root
+
+        // If there is only one element
+        if (myHeap.size() == 1) {
+            myHeap.remove(0);
+            return temp;
+        }
+
+        // Move last element to root
+        myHeap.set(0, myHeap.get(myHeap.size() - 1));
+        myHeap.remove(myHeap.size() - 1);
+
+        // Restore heap property
         heapify(0);
 
         return temp;
-
-
-
     }
 
     /**
@@ -115,45 +122,45 @@ public class PriorityQueue<E extends Comparable<E>> {
      */
     private void heapify(int pos) {
 
+        // First: bubble up if needed
         while (pos > 0) {
             int parentIndex = (pos - 1) / 2;
-            int leftChild = (2 * pos) + 1;
-            int rightChild = (2 * pos) + 2;
 
             if (myHeap.get(pos).compareTo(myHeap.get(parentIndex)) < 0) {
                 swap(pos, parentIndex);
-                pos = parentIndex; // move upward
+                pos = parentIndex;
+            } else {
+                break;
+            }
+        }
+
+        // sift down if needed
+        while (true) {
+            int leftChild = (2 * pos) + 1;
+            int rightChild = (2 * pos) + 2;
+            int smallest = pos;
+
+            // Check left child
+            if (leftChild < myHeap.size() &&
+                    myHeap.get(leftChild).compareTo(myHeap.get(smallest)) < 0) {
+                smallest = leftChild;
             }
 
-            else if (myHeap.get(pos).compareTo(myHeap.get(leftChild)) > 0 && myHeap.get(pos).compareTo(myHeap.get(rightChild)) > 0){
-                if (myHeap.get(rightChild).compareTo(myHeap.get(leftChild)) > 0){ //If right child > left child
-                    swap(pos, leftChild);
-                    pos = leftChild;
-                }
-                else if (myHeap.get(rightChild).compareTo(myHeap.get(leftChild)) < 0){// If right < left
-                    swap(pos, rightChild);
-                    pos = rightChild;
-                }
-                else{
-                    swap(pos, leftChild);
-                    pos = leftChild;
-                }
+            // Check right child
+            if (rightChild < myHeap.size() &&
+                    myHeap.get(rightChild).compareTo(myHeap.get(smallest)) < 0) {
+                smallest = rightChild;
             }
 
-            else if (myHeap.get(pos).compareTo(myHeap.get(leftChild)) > 0){ // > left, swap with left
-                swap(pos, leftChild);
-                pos = leftChild;
-            }
-            else if (myHeap.get(pos).compareTo(myHeap.get(rightChild)) > 0){ // > right, swap with right
-                swap(pos, rightChild);
-                pos = rightChild;
-            }
-            else {
+            // If current node is already smallest, stop
+            if (smallest == pos) {
                 break;
             }
 
+            // Swap and continue downward
+            swap(pos, smallest);
+            pos = smallest;
         }
-
     }
 
     /**
@@ -165,32 +172,44 @@ public class PriorityQueue<E extends Comparable<E>> {
      * @return true if an element was removed from the queue, false otherwise
      */
     public boolean remove(E element) {
-        int pos = -1000;
-        if (myHeap.isEmpty()){
+        // Empty heap
+        if (myHeap.isEmpty()) {
             return false;
         }
-        for (int i = 0; i < myHeap.size(); i++){
-            if (myHeap.get(i).equals(element)){
+
+        // Find the element
+        int pos = -1;
+        for (int i = 0; i < myHeap.size(); i++) {
+            if (myHeap.get(i).equals(element)) {
                 pos = i;
+                break; // remove the first matching element
             }
         }
-        if (pos == -1000){
+
+        // Element not found
+        if (pos == -1) {
             return false;
         }
-        else{
-            E temp = myHeap.get(pos);
-            myHeap.set(pos, myHeap.get(-1));
-            myHeap.set(-1, temp);
-            myHeap.remove(-1);
-            heapify(pos);
 
+        // If removing the last element, just remove it
+        int lastIndex = myHeap.size() - 1;
+        if (pos == lastIndex) {
+            myHeap.remove(lastIndex);
             return true;
         }
 
+        // Replace the element with the last element
+        myHeap.set(pos, myHeap.get(lastIndex));
+        myHeap.remove(lastIndex);
 
+        // Restore heap property
+        heapify(pos);
 
-
+        return true;
     }
+
+
+
 
     /**
      * Returns the number of elements in the queue
